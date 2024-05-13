@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <title>FFT Demo</title>
+    <link rel="stylesheet" href="./fft.css">
+
+</head>
+
+
+
+
+<body>
+    
+<div class="block_container"  style="background-color: #00b5e2; margin-left:10%; margin-right:10%;">    <p> </p>
+    <p> </p>
+    <br>
+
+        <h1>Discrete Fourier Transform Calculator and Plotter</h1>
+
+     
+        <h2> CIIEC-BUAP</h2>
+
+      <p style="font-size: 30px; margin-left: 80%;">May 11th, 2024 </p>
+        <p style="font-size: 20px; margin-left: 80%;"><a href="https://github.com/lvillasen/FFT.js/" >Source Code</a> </p>
+        
+        <hr>
+
+        <h2> Introduction</h2>
+
+<p style="color:black;font-size:30px;">
+This Web App calculates and plots the <a href="https://en.wikipedia.org/wiki/Discrete_Fourier_transform" >Discrete Fourier Transform</a> (DFT). You can type a function and a value for a sampling rate or you can paste your own data.</p>
+
+<p style="color:black;font-size:30px;"> If the data size is a power of 2, this app uses the <a href="https://en.wikipedia.org/wiki/Cooley%E2%80%93Tukey_FFT_algorithm" >Fast Fourier Transform algorithm</a>, otherwise it uses the <a href="https://brilliant.org/wiki/discrete-fourier-transform/" >direct formula for the DFT</a>.</p>
+
+
+
+        <hr>
+            <h3> Enter a Function of Time and a Sampling Rate</h3>
+
+    <div id="center" style="background-color: #00b5e2; ">
+        <label>Function x(t): </label>
+
+        <input style="width:50%;" id="func" value="sin(2*PI*f1*t)+ 2*cos(2*PI*150*t)" type="text" onchange="prepareFunction()">
+    </div>
+    <div id="center" style="background-color: #00b5e2; width:100%;">
+        <label>Frequency f1(t) in Hz:  </label>
+        <input id="f1" style="width:30%;" value="100" type="text" onchange="prepareFunction()">
+    </div>
+    <div id="center" style="background-color: #00b5e2; width:100%; ">
+        <label style="text-align:left;" >Frequency f2(t) in Hz:  </label>
+
+        <input id="f2" style="width:30%;" value="20*(1+t)" type="text" onchange="prepareFunction()">
+    </div>
+    <div id="center" style="background-color: #00b5e2; width:100%;">
+        <label>Time (s): </label>
+        <input id="time" style="width:20%;" value="2" type="text" onchange="prepareFunction()">
+    </div>
+    <div id="center" style="background-color: #00b5e2; width:100%;">
+        <label>Sampling Rate (Hz): </label>
+        <input id="sampling" style="width:20%;" value="512" type="text" onchange="prepareFunction()"> <br>
+             <input class="favorite styled" type="button" id="fftFunction" value="Run" onclick="prepareFunction()";>
+
+    </div>
+    <hr>
+    <h3> Paste your Own Data Here</h3>
+
+     <label>Column: </label>
+    <input id="column" style="width:2%;" value=0 type="text" >
+    <label>Separator: </label>
+
+    <input id="separator" style="width:2%;" value=";" type="text" >
+
+<label>Sampling Interval: </label>
+        <input id="samplingIntervalData" style="width:5%;" value="1" type="text" >
+<label>Unit: </label>
+        <input id="samplingIntervalUnit" style="width:10%;" value="Month" type="text" ><br>
+
+     <center>
+    <textarea cols="100" id="textArea" rows="20" style="margin:10px"></textarea><br>
+
+ <input class="new_styled" type="button" value="Clear" onclick="eraseText();"> 
+</center>
+    <br>
+     <input class="favorite styled" type="button" id="fftData" value="Run" onclick="prepareData()";>
+
+    <hr>
+                <h3> Discrete Fourier Transform</h3>
+
+    <div id="center" style="background-color: #00b5e2; width:100%;">
+        <select class="new_styled" id="window" onchange="preparePlot()">
+
+                
+                <option value="None">Window: None</option>
+                <option value="Cosine">Window: Cosine</option>
+
+                <option value="Hanning">Window: Hanning</option>
+                <option value="Hamming">Window: Hamming</option>
+                <option value="Blackman">Window: Blackman</option>
+                </select>
+    </div>
+    <div id="center" style="background-color: #00b5e2; width:100%;">
+        <input type="checkbox" id="check1" name="check" onclick="onlyOne(this)">
+        <label>Real Part </label>
+        <input type="checkbox" id="check2" name="check" onclick="onlyOne(this)">
+        <label>Imag Part </label>
+        <br>
+        <input type="checkbox" id="check3" name="check" onclick="onlyOne(this)" checked>
+        <label>           Abs Value </label>
+        <input id="logscale" type="checkbox" onchange="preparePlot()">
+        <label>Log Scale</label>
+        <p> </p>
+
+    </div>
+    <div class="block_container" style="background-color: #00b5e2; width:100%;">
+        <div id="plot1" style="width:100%;"></div>
+    </div>  
+    <div class="block_container" style="background-color: #00b5e2; width:100%;">
+        <div id="plot2" style="width:100%;"></div>
+    </div>
+<br> <br>
+        
+
+
+</body>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="./FFT.js"></script>
+<script src="./main.js"></script>
+</html>
